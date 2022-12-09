@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <style>
+            .slide-container{
+                width: 500px;
+                height: 300px;
+                background-color: #FF00FF;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .slide-img{
+                z-index: 10;
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="slide-container">
+            <img class="slide-img" style="z-index: 20;" src="https://source.unsplash.com/random/500×300?unique=0" />
+            <img class="slide-img" src="https://source.unsplash.com/random/500×300?unique=1" />
+            <img class="slide-img" src="https://source.unsplash.com/random/500×300?unique=2" />
+            <img class="slide-img" src="https://source.unsplash.com/random/500×300?unique=3" />
+            <img class="slide-img" src="https://source.unsplash.com/random/500×300?unique=4" />
+            <img class="slide-img" src="https://source.unsplash.com/random/500×300?unique=5" />
+        </div>
+
+        <script>
+            var currentImg    = 0;                                   // keep track of current visible image index 
+            var imgCollection = document.getElementsByClassName("slide-img"); // get all images
+
+            // transform html collection to array
+            var imgList = [];
+            Array.prototype.forEach.call(imgCollection, img => imgList.push(img) );
+
+            // this function set the next image z-index to 20 and resets the z-index of the other images
+            function bumpNextImage(){
+
+                // set image index to show
+                if (currentImg < imgList.length){
+                    currentImg++;
+                } else {
+                    currentImg = 0;
+                }
+
+                console.log("showing image: ", currentImg);
+                
+                // cycle thorugh image list
+                imgList.forEach( (img, idx) => {
+                    // if is a match
+                    if(idx === currentImg){
+                        img.style.zIndex = "20";
+                        console.log("img ", idx, "set to 10");
+                    } else {
+                        img.style.zIndex = "10";
+                        console.log("img ", idx, "set to 100");
+                    }
+                });
+            }
+
+            myInterval = setInterval(bumpNextImage, 2000);
+
+        </script>
+    </body>
+</html>
